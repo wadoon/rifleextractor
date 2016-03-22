@@ -12,19 +12,23 @@ RIFL Extractor
 Getting Started
 ===============
 
-1. Download this project
+* Download this project
 
+```    
     $ git clone https://github.com/wadoon/rifleextractor.git
+```
    
-2. Run ANT:
+* Run ANT:
 
+```    
     $ ant artifact.riflap
-     
-3. Test with the FristExample.java
-    
+```         
+* Test with the FristExample.java
+
+```    
     $ cd example/src/
     $ javac -cp ../../out/artifacts/riflap/riflap.jar edu/kit/iti/rifl/FirstTest.java
-    
+```    
 
 TODO 
 ====
