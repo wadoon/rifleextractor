@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="riflextractor" default="all">
+  
+  
+  <property file="build.xml.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="700m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/*.orig/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/*.rbc/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/RCS/**"/>
+    <exclude name="**/SCCS/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/rcs/**"/>
+    <exclude name="**/vssver.scc/**"/>
+    <exclude name="**/vssver2.scc/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.egg"/>
+    <include name="*.jar"/>
+    <include name="*.ear"/>
+    <include name="*.ane"/>
+    <include name="*.apk"/>
+    <include name="*.swc"/>
+    <include name="*.war"/>
+    <include name="*.zip"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <exclude name="**/?*.java"/>
+    <exclude name="**/?*.form"/>
+    <exclude name="**/?*.class"/>
+    <exclude name="**/?*.groovy"/>
+    <exclude name="**/?*.scala"/>
+    <exclude name="**/?*.flex"/>
+    <exclude name="**/?*.kt"/>
+    <exclude name="**/?*.clj"/>
+    <exclude name="**/?*.aj"/>
+  </patternset>
+  
+  
+  <!-- Project Libraries -->
+  
+  <path id="library.tools.classpath">
+    <pathelement location="${basedir}/../../../../usr/java/jdk1.8.0_74/lib/tools.jar"/>
+  </path>
+  
+  <!-- Modules -->
+  
+  
+  <!-- Module annotation -->
+  
+  <dirname property="module.annotation.basedir" file="${ant.file}"/>
+  
+  
+  
+  <property name="compiler.args.annotation" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="annotation.output.dir" value="${module.annotation.basedir}/out/production/annotation"/>
+  <property name="annotation.testoutput.dir" value="${module.annotation.basedir}/out/test/annotation"/>
+  
+  <path id="annotation.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="annotation.module.production.classpath"/>
+  
+  <path id="annotation.runtime.production.module.classpath">
+    <pathelement location="${annotation.output.dir}"/>
+  </path>
+  
+  <path id="annotation.module.classpath">
+    <pathelement location="${annotation.output.dir}"/>
+  </path>
+  
+  <path id="annotation.runtime.module.classpath">
+    <pathelement location="${annotation.testoutput.dir}"/>
+    <pathelement location="${annotation.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.annotation">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.annotation">
+    <patternset refid="excluded.from.module.annotation"/>
+  </patternset>
+  
+  <path id="annotation.module.sourcepath">
+    <dirset dir="${module.annotation.basedir}/annotation">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.annotation" depends="compile.module.annotation.production,compile.module.annotation.tests" description="Compile module annotation"/>
+  
+  <target name="compile.module.annotation.production" description="Compile module annotation; production classes">
+    <mkdir dir="${annotation.output.dir}"/>
+    <javac destdir="${annotation.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
+      <compilerarg line="${compiler.args.annotation}"/>
+      <bootclasspath refid="annotation.module.bootclasspath"/>
+      <classpath refid="annotation.module.production.classpath"/>
+      <src refid="annotation.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.annotation"/>
+    </javac>
+    
+    <copy todir="${annotation.output.dir}">
+      <fileset dir="${module.annotation.basedir}/annotation/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.annotation.tests" depends="compile.module.annotation.production" description="compile module annotation; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.annotation" description="cleanup module">
+    <delete dir="${annotation.output.dir}"/>
+    <delete dir="${annotation.testoutput.dir}"/>
+  </target>
+  
+  
+  <!-- Module example -->
+  
+  <dirname property="module.example.basedir" file="${ant.file}"/>
+  
+  
+  
+  <property name="compiler.args.example" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="example.output.dir" value="${module.example.basedir}/out/production/example"/>
+  <property name="example.testoutput.dir" value="${module.example.basedir}/out/test/example"/>
+  
+  <path id="example.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="example.module.production.classpath">
+    <pathelement location="${annotation.output.dir}"/>
+  </path>
+  
+  <path id="example.runtime.production.module.classpath">
+    <pathelement location="${example.output.dir}"/>
+    <path refid="annotation.runtime.production.module.classpath"/>
+  </path>
+  
+  <path id="example.module.classpath">
+    <pathelement location="${example.output.dir}"/>
+    <pathelement location="${annotation.testoutput.dir}"/>
+    <pathelement location="${annotation.output.dir}"/>
+  </path>
+  
+  <path id="example.runtime.module.classpath">
+    <pathelement location="${example.testoutput.dir}"/>
+    <pathelement location="${example.output.dir}"/>
+    <path refid="annotation.runtime.module.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.example">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.example">
+    <patternset refid="excluded.from.module.example"/>
+  </patternset>
+  
+  <path id="example.module.sourcepath">
+    <dirset dir="${module.example.basedir}/example">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.example" depends="compile.module.example.production,compile.module.example.tests" description="Compile module example"/>
+  
+  <target name="compile.module.example.production" depends="compile.module.annotation" description="Compile module example; production classes">
+    <mkdir dir="${example.output.dir}"/>
+    <javac destdir="${example.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
+      <compilerarg line="${compiler.args.example}"/>
+      <bootclasspath refid="example.module.bootclasspath"/>
+      <classpath refid="example.module.production.classpath"/>
+      <src refid="example.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.example"/>
+    </javac>
+    
+    <copy todir="${example.output.dir}">
+      <fileset dir="${module.example.basedir}/example/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.example.tests" depends="compile.module.example.production" description="compile module example; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.example" description="cleanup module">
+    <delete dir="${example.output.dir}"/>
+    <delete dir="${example.testoutput.dir}"/>
+  </target>
+  
+  
+  <!-- Module riflextractor -->
+  
+  <dirname property="module.riflextractor.basedir" file="${ant.file}"/>
+  
+  
+  
+  <property name="compiler.args.riflextractor" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="riflextractor.output.dir" value="${module.riflextractor.basedir}/out/production/riflextractor"/>
+  <property name="riflextractor.testoutput.dir" value="${module.riflextractor.basedir}/out/test/riflextractor"/>
+  
+  <path id="riflextractor.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="riflextractor.module.production.classpath">
+    <path refid="library.tools.classpath"/>
+    <pathelement location="${annotation.output.dir}"/>
+  </path>
+  
+  <path id="riflextractor.runtime.production.module.classpath">
+    <pathelement location="${riflextractor.output.dir}"/>
+    <path refid="library.tools.classpath"/>
+    <path refid="annotation.runtime.production.module.classpath"/>
+  </path>
+  
+  <path id="riflextractor.module.classpath">
+    <pathelement location="${riflextractor.output.dir}"/>
+    <path refid="library.tools.classpath"/>
+    <pathelement location="${annotation.testoutput.dir}"/>
+    <pathelement location="${annotation.output.dir}"/>
+  </path>
+  
+  <path id="riflextractor.runtime.module.classpath">
+    <pathelement location="${riflextractor.testoutput.dir}"/>
+    <pathelement location="${riflextractor.output.dir}"/>
+    <path refid="library.tools.classpath"/>
+    <path refid="annotation.runtime.module.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.riflextractor">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.riflextractor">
+    <patternset refid="excluded.from.module.riflextractor"/>
+  </patternset>
+  
+  <path id="riflextractor.module.sourcepath">
+    <dirset dir="${module.riflextractor.basedir}">
+      <include name="src"/>
+      <include name="resources"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.riflextractor" depends="compile.module.riflextractor.production,compile.module.riflextractor.tests" description="Compile module riflextractor"/>
+  
+  <target name="compile.module.riflextractor.production" depends="compile.module.annotation" description="Compile module riflextractor; production classes">
+    <mkdir dir="${riflextractor.output.dir}"/>
+    <javac destdir="${riflextractor.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
+      <compilerarg line="${compiler.args.riflextractor}"/>
+      <bootclasspath refid="riflextractor.module.bootclasspath"/>
+      <classpath refid="riflextractor.module.production.classpath"/>
+      <src refid="riflextractor.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.riflextractor"/>
+    </javac>
+    
+    <copy todir="${riflextractor.output.dir}">
+      <fileset dir="${module.riflextractor.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.riflextractor.basedir}/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.riflextractor.tests" depends="compile.module.riflextractor.production" description="compile module riflextractor; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.riflextractor" description="cleanup module">
+    <delete dir="${riflextractor.output.dir}"/>
+    <delete dir="${riflextractor.testoutput.dir}"/>
+  </target>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.annotation, clean.module.example, clean.module.riflextractor" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.annotation, compile.module.example, compile.module.riflextractor" description="build all modules"/>
+  
+  <target name="init.artifacts">
+    <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
+    <property name="artifact.output.riflap" value="${basedir}/out/artifacts/riflap"/>
+    <mkdir dir="${artifacts.temp.dir}"/>
+    <property name="temp.jar.path.riflap.jar" value="${artifacts.temp.dir}/riflap.jar"/>
+  </target>
+  
+  <target name="artifact.riflap" depends="init.artifacts, compile.module.annotation, compile.module.riflextractor" description="Build &#39;riflap&#39; artifact">
+    <property name="artifact.temp.output.riflap" value="${artifacts.temp.dir}/riflap"/>
+    <mkdir dir="${artifact.temp.output.riflap}"/>
+    <jar destfile="${temp.jar.path.riflap.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
+      <zipfileset dir="${basedir}/resources"/>
+      <zipfileset dir="${annotation.output.dir}"/>
+      <zipfileset dir="${riflextractor.output.dir}"/>
+    </jar>
+    <copy file="${temp.jar.path.riflap.jar}" tofile="${artifact.temp.output.riflap}/riflap.jar"/>
+  </target>
+  
+  <target name="build.all.artifacts" depends="artifact.riflap" description="Build all artifacts">
+    <mkdir dir="${artifact.output.riflap}"/>
+    <copy todir="${artifact.output.riflap}">
+      <fileset dir="${artifact.temp.output.riflap}"/>
+    </copy>
+    
+    <!-- Delete temporary files -->
+    <delete dir="${artifacts.temp.dir}"/>
+  </target>
+  
+  <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>
+</project>

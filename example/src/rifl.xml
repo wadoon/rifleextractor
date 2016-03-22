@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE riflspec SYSTEM "rifl4Java.dtd">
+<riflspec>
+  <domains><domain name="high" /><domain name="low" /></domains>
+  <flowrelation><flow from="low" to="high" /></flowrelation>
+  <domainassignment>
+    <assign handle="h" domain="high" />
+    <assign handle="l" domain="low" />
+  </domainassignment>
+		<assignable handle="LOW">
+			<category name="...">
+				<sink>
+<parameter class="edu.kit.iti.rifl.FirstTest" method="in_secure(java.util.List<java.lang.Integer>)" parameter="i"/>
+				</sink>
+			</category>
+		</assignable>
+		<assignable handle="LOW">
+			<category name="...">
+				<sink>
+<returnvalue class="edu.kit.iti.rifl.FirstTest" method="leakage()"/>
+				</sink>
+			</category>
+		</assignable>
+		<assignable handle="HIGH">
+			<category name="...">
+				<source>
+<field class="edu.kit.iti.rifl.FirstTest" name="high"/>
+				</source>
+			</category>
+		</assignable>
+</riflspec>
+</riflspec>

@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="riflap">
+    <output-path>$PROJECT_DIR$/out/artifacts/riflap</output-path>
+    <root id="archive" name="riflap.jar">
+      <element id="dir-copy" path="$PROJECT_DIR$/resources" />
+      <element id="module-output" name="annotation" />
+      <element id="module-output" name="riflextractor" />
+    </root>
+  </artifact>
+</component>
