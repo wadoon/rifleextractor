@@ -1,6 +1,8 @@
 RIFL Extractor
 ==============
 
+[![Build Status](https://travis-ci.org/wadoon/riflextractor.svg?branch=master)](https://travis-ci.org/wadoon/riflextractor)
+
 **RIFL Extractor** is an *Annotation Processor* for extracting information flow specification from the annotation in the source
  into the RIFL XML format. 
  
