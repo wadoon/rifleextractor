@@ -2,7 +2,7 @@
 <project name="riflextractor" default="all">
   
   
-  <property file="build.xml.properties"/>
+  <property file="build.properties"/>
   <!-- Uncomment the following property if no tests compilation is needed -->
   <!-- 
   <property name="skip.tests" value="true"/>
@@ -60,7 +60,9 @@
   <!-- Project Libraries -->
   
   <path id="library.tools.classpath">
-    <pathelement location="${basedir}/../../../../usr/java/jdk1.8.0_74/lib/tools.jar"/>
+    <pathelement location="/usr/java/jdk1.8.0_74/lib/tools.jar"/>
+    <pathelement location="/usr/java/default/lib/tools.jar"/>
+    <pathelement location="/usr/java/latest/lib/tools.jar"/>
   </path>
   
   <!-- Modules -->
