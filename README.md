@@ -14,16 +14,16 @@ Getting Started
 
 1. Download this project
 
-    git clone http://github.com/areku/riflextractor
+    $ git clone https://github.com/wadoon/rifleextractor.git
    
 2. Run ANT:
 
-    ant artifact.riflap
+    $ ant artifact.riflap
      
 3. Test with the FristExample.java
     
-    cd example/src/
-    javac -cp ../../out/artifacts/riflap/riflap.jar edu/kit/iti/rifl/FirstTest.java
+    $ cd example/src/
+    $ javac -cp ../../out/artifacts/riflap/riflap.jar edu/kit/iti/rifl/FirstTest.java
     
 
 TODO 
