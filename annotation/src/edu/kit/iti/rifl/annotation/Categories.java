@@ -6,12 +6,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Created by weigl on 3/22/16.
+ * Created by weigl on 3/24/16.
  */
 @Retention(RetentionPolicy.SOURCE)
-@Target({ElementType.PARAMETER, ElementType.FIELD, ElementType.LOCAL_VARIABLE, ElementType.METHOD})
-public @interface Source {
-    String value();
-    String category() default "notavailable";
-
+@Target({ElementType.TYPE})
+public @interface Categories {
+    Category[] value();
 }

@@ -11,5 +11,15 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.SOURCE)
 @Target({ElementType.PARAMETER, ElementType.FIELD, ElementType.LOCAL_VARIABLE, ElementType.METHOD})
 public @interface Sink  {
-    Domain value();
+    /**
+     * handle
+     * @return
+     */
+    String value();
+
+    /**
+     * category name
+     */
+
+    String category() default "notavailable";
 }

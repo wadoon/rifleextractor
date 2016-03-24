@@ -1,1 +1,3 @@
-edu.kit.iti.rifl.RiflAnnotationProcessor
+edu.kit.iti.rifl.SinkSourceAnnotationProcessor
+edu.kit.iti.rifl.LatticeProcessor
+edu.kit.iti.rifl.CategoryProcessor
