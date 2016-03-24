@@ -6,6 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * This annotation catches multuple a RIFL {@see Category}.
  * Created by weigl on 3/24/16.
  */
 @Retention(RetentionPolicy.SOURCE)

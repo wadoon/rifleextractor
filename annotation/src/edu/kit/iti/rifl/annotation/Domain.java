@@ -5,8 +5,4 @@ package edu.kit.iti.rifl.annotation;
  */
 public enum Domain {
     LOW, HIGH;
-
-    public static int compare(Domain l1, Domain l2) {
-        return l1.ordinal() - l2.ordinal();
-    }
 }

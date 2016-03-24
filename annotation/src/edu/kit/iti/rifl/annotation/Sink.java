@@ -6,6 +6,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * Marks a sink.
+ *
+ * A sink is assigned to an category and a handle.
  * Created by weigl on 3/22/16.
  */
 @Retention(RetentionPolicy.SOURCE)
